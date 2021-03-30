@@ -42,6 +42,11 @@ function filterByQuery(query, animalsArray) {
     return filteredResults;
 }
 
+function findById(id, animalsArray) {
+    const result = animalsArray.filter(animal => animal.id === id)[0];
+    return result;
+}
+
 //adds the route that the front-end can request data from
 //get(route the client will fetch from, callback function to execute each time this route is accessed w/GET request)
 app.get('/api/animals', (req, res) => {
@@ -50,6 +55,16 @@ app.get('/api/animals', (req, res) => {
         results = filterByQuery(req.query, results);
     }
     res.json(results);
+});
+
+//a param route must come after the other GET route
+app.get('/api/animals/:id', (req, res) => {
+    const result = findById(req.params.id, animals);
+    if (result) {
+        res.json(result);
+    } else {
+        res.send(404);
+    }
 });
 
 //makes the server listen
