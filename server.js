@@ -59,6 +59,14 @@ function findById(id, animalsArray) {
     return result;
 }
 
+function createNewAnimal(body, animalsArray) {
+    console.log(body);
+    //our function's main code will go here
+
+    //return finished code to post route for response
+    return body;
+}
+
 //adds the route that the front-end can request data from
 //get(route the client will fetch from, callback function to execute each time this route is accessed w/GET request)
 app.get('/api/animals', (req, res) => {
@@ -82,7 +90,8 @@ app.get('/api/animals/:id', (req, res) => {
 //this creates a route that listens for POST requests for the server to accept data
 app.post('/api/animals', (req, res) => {
     //req.body is where our incoming content will be
-    console.log(req.body);
+    //set id based on what the next index of the array will be
+    req.body.id = animals.length.toString();
 
     //sends the info directly back to the client - use only for testing endpoints
     res.json(req.body);
