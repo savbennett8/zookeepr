@@ -1,4 +1,7 @@
 const express = require('express');
+const fs = require('fs');
+//mod built into node - provides utilities for working w/file & directory paths
+const path = require('path');
 const PORT = process.env.PORT || 3001;
 const app = express();
 const { animals } = require('./data/animals.json');
@@ -60,11 +63,19 @@ function findById(id, animalsArray) {
 }
 
 function createNewAnimal(body, animalsArray) {
-    console.log(body);
-    //our function's main code will go here
+    const animal = body;
+    animalsArray.push(animal);
 
-    //return finished code to post route for response
-    return body;
+    fs.writeFileSync(
+        //joins the value of '__dirname' which reps the directory of the file 
+        //we execute the code in, w the path to the 'animals.json' file 
+        path.join(__dirname, './data/animals.json'),
+        //'null' means we're not editing any existing data
+        //'2' says we want to leave white space between values 
+        JSON.stringify({ animals: animalsArray }, null, 2)
+    );
+
+    return animal;
 }
 
 //adds the route that the front-end can request data from
@@ -92,6 +103,9 @@ app.post('/api/animals', (req, res) => {
     //req.body is where our incoming content will be
     //set id based on what the next index of the array will be
     req.body.id = animals.length.toString();
+
+    //add animal to json file and animals array in this function
+    const animal = createNewAnimal(req.body, animals);
 
     //sends the info directly back to the client - use only for testing endpoints
     res.json(req.body);
