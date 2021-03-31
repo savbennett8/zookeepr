@@ -91,6 +91,7 @@ function validateAnimal(animal) {
     if (!animal.personalityTraits || !Array.isArray(animal.personalityTraits)) {
         return false;
     }
+    return true;
 }
 
 //adds the route that the front-end can request data from

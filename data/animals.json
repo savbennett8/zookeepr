@@ -117,6 +117,17 @@
         "hungry"
       ],
       "id": "11"
+    },
+    {
+      "name": "Kaya",
+      "species": "bear",
+      "diet": "carnivore",
+      "personalityTraits": [
+        "whiny",
+        "needy",
+        "loving"
+      ],
+      "id": "12"
     }
   ]
 }
