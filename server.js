@@ -3,6 +3,18 @@ const PORT = process.env.PORT || 3001;
 const app = express();
 const { animals } = require('./data/animals.json');
 
+// ----------- Middleware ----------- //
+// --------- both functions need to be setup every time a server is looking to 
+// --------- accept POST data ------- //
+//parse incoming string or array data
+//'express...' method built into Express to convert POST data into
+//key/value pairs that can be accessed in req.body.
+//'extended: true' option informs the server that there could be
+//sub-array data so it needs to look deep into the POST data
+app.use(express.urlencoded({ extended: true }));
+//parse incoming JSON data into req.body
+app.use(express.json());
+
 function filterByQuery(query, animalsArray) {
     let personalityTraitsArray = [];
     //note that we saved the animalsArray as filteredResults here
@@ -65,6 +77,15 @@ app.get('/api/animals/:id', (req, res) => {
     } else {
         res.send(404);
     }
+});
+
+//this creates a route that listens for POST requests for the server to accept data
+app.post('/api/animals', (req, res) => {
+    //req.body is where our incoming content will be
+    console.log(req.body);
+
+    //sends the info directly back to the client - use only for testing endpoints
+    res.json(req.body);
 });
 
 //makes the server listen
