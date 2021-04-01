@@ -7,16 +7,23 @@ const app = express();
 const { animals } = require('./data/animals.json');
 
 // ----------- Middleware ----------- //
-// --------- both functions need to be setup every time a server is looking to 
-// --------- accept POST data ------- //
+// ---- use it when creating a server front end & JSON data ----- //
+
+// --------- both functions need to be setup every time a server is  
+// --------- looking to accept POST data ------- //
 //parse incoming string or array data
-//'express...' method built into Express to convert POST data into
+//'express.urlencoded' method built into Express to convert POST data into
 //key/value pairs that can be accessed in req.body.
 //'extended: true' option informs the server that there could be
 //sub-array data so it needs to look deep into the POST data
 app.use(express.urlencoded({ extended: true }));
 //parse incoming JSON data into req.body
 app.use(express.json());
+
+//allows the files in 'public' to be static/accessible
+app.use(express.static('public'));
+
+// -------------------------------------//
 
 function filterByQuery(query, animalsArray) {
     let personalityTraitsArray = [];
@@ -130,6 +137,11 @@ app.post('/api/animals', (req, res) => {
         //sends the info directly back to the client - use only for testing endpoints
         res.json(animal);
     }
+});
+
+// '/' is the route (to the root of the server) used to create a homepage
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/index.html'));
 });
 
 //makes the server listen
