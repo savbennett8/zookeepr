@@ -128,6 +128,25 @@
         "loving"
       ],
       "id": "12"
+    },
+    {
+      "name": "Charlie",
+      "species": "kangaroo",
+      "diet": "folivore",
+      "personalityTraits": [
+        "hungry",
+        "zany"
+      ],
+      "id": "13"
+    },
+    {
+      "name": "Charlie",
+      "species": "Horse",
+      "diet": "omnivore",
+      "personalityTraits": [
+        "loving"
+      ],
+      "id": "14"
     }
   ]
 }
