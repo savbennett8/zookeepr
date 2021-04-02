@@ -147,6 +147,16 @@
         "loving"
       ],
       "id": "14"
+    },
+    {
+      "name": "Jasper",
+      "species": "Cat",
+      "diet": "carnivore",
+      "personalityTraits": [
+        "zany",
+        "goofy"
+      ],
+      "id": "15"
     }
   ]
 }
