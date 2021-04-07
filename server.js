@@ -5,6 +5,8 @@ const path = require('path');
 const PORT = process.env.PORT || 3001;
 const app = express();
 const { animals } = require('./data/animals.json');
+const apiRoutes = require('./routes/apiRoutes');
+const htmlRoutes = require('./routes/htmlRoutes');
 
 // ----------- Middleware ----------- //
 // ---- use it when creating a server front end & JSON data ----- //
@@ -23,25 +25,10 @@ app.use(express.json());
 //allows the files in 'public' to be static/accessible
 app.use(express.static('public'));
 
+app.use('/api', apiRoutes);
+app.use('/', htmlRoutes);
+
 // -------------------------------------//
-
-// '/' is the route (to the root of the server) used to create a homepage
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, './public/index.html'));
-});
-
-app.get('/animals', (req, res) => {
-    res.sendFile(path.join(__dirname, './public/animals.html'));
-});
-
-app.get('/zookeepers', (req, res) => {
-    res.sendFile(path.join(__dirname, './public/zookeepers.html'));
-});
-
-//in case user makes request for route that doesn't exist--sends to homepage
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, './public/index.html'));
-});
 
 //makes the server listen
 //ports are the exact destination on the host
